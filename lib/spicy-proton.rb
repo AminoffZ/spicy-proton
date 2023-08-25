@@ -5,7 +5,12 @@ require 'memory-corpus'
 module Spicy
   class Proton
     extend Forwardable
-
+    
+    def initialize(seed = nil)
+      puts("seed: #{seed}")
+      @corpus = Memory::Corpus.new(seed)
+    end
+    
     class << self
       [:adjective, :noun, :adverb, :verb, :pair, :format].each do |method|
         define_method(method) do |*args, &block|
@@ -15,11 +20,6 @@ module Spicy
         end
       end
     end
-
-    def initialize
-      @corpus = Memory::Corpus.new
-    end
-
     def_delegators :@corpus, :adjective, :noun, :adverb, :verb, :adjectives, :nouns, :adverbs, :verbs, :pair, :format
   end
 end

@@ -21,7 +21,8 @@ module Spicy::Memory
   class WordList
     include Spicy::Seek
 
-    def initialize(file_name)
+    def initialize(file_name, seed = nil)
+      @seed = seed
       File.open(file_name, 'rb') do |r|
         @cumulative = Spicy::Header.cumulative(r)
         @min = @cumulative.keys.min
@@ -44,7 +45,8 @@ module Spicy::Memory
   class Corpus
     include Spicy::Corpus
 
-    def initialize
+    def initialize(seed = nil)
+      @seed = seed
       @lists = {}
     end
 
@@ -72,7 +74,7 @@ module Spicy::Memory
 
     def list(type)
       @lists[type] ||= begin
-        WordList.new(Files.corpus(type))
+        WordList.new(Files.corpus(type), @seed)
       end
     end
   end

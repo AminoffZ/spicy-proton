@@ -33,7 +33,12 @@ module Spicy
 
     def rand(low, high)
       range = high - low + 1
-      low + SecureRandom.random_number(range)
+      if @seed
+        rng = Random.new(@seed)
+        low + rng.rand(range)
+      else
+        low + SecureRandom.random_number(range)
+      end
     end
   end
 end
