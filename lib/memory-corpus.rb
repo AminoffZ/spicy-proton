@@ -22,7 +22,7 @@ module Spicy::Memory
     include Spicy::Seek
 
     def initialize(file_name, seed = nil)
-      @seed = seed
+      @seed = seed if seed
       File.open(file_name, 'rb') do |r|
         @cumulative = Spicy::Header.cumulative(r)
         @min = @cumulative.keys.min
@@ -46,7 +46,7 @@ module Spicy::Memory
     include Spicy::Corpus
 
     def initialize(seed = nil)
-      @seed = seed
+      @seed = seed if seed
       @lists = {}
     end
 

@@ -7,7 +7,6 @@ module Spicy
     extend Forwardable
     
     def initialize(seed = nil)
-      puts("seed: #{seed}")
       @corpus = Memory::Corpus.new(seed)
     end
     
